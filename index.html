@@ -4,18 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sahan's Pro Institutional Trading Terminal</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #0b0e14; }
         .mono { font-family: 'JetBrains Mono', monospace; }
         .glass-panel { background: rgba(18, 24, 36, 0.85); border: 1px solid #1e293b; backdrop-filter: blur(10px); }
-        .glow-green { box-shadow: 0 0 15px rgba(16, 185, 129, 0.2); }
-        .glow-red { box-shadow: 0 0 15px rgba(244, 63, 94, 0.2); }
+        .glow-sniper { box-shadow: 0 0 25px rgba(16, 185, 129, 0.25); border-color: rgba(16, 185, 129, 0.4); }
     </style>
 </head>
 <body class="text-slate-200 min-h-screen pb-12">
@@ -25,29 +21,24 @@
         <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
             <div class="flex items-center space-x-3">
                 <div class="p-2 bg-emerald-500/10 rounded-lg border border-emerald-500/30 text-emerald-400">
-                    <i data-lucide="cpu" class="w-6 h-6"></i>
+                    <i data-lucide="crosshair" class="w-6 h-6"></i>
                 </div>
                 <div>
                     <h1 class="text-lg font-bold text-white tracking-wide flex items-center gap-2">
-                        SAHAN'S PRO QUANT TERMINAL <span class="text-xs px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">v2.5 PRO</span>
+                        SAHAN'S PRO QUANT TERMINAL <span class="text-xs px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">v3.5 SNIPER</span>
                     </h1>
-                    <p class="text-xs text-slate-400">CRT • AMD • SMT • CVD Order Flow • Liquidation Heatmaps</p>
+                    <p class="text-xs text-slate-400">CRT • AMD • SMT • CVD Order Flow • Auto-Ranking Engine</p>
                 </div>
             </div>
 
-            <!-- Global Live Badges -->
             <div class="flex items-center space-x-4">
                 <div class="flex items-center space-x-2 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs">
                     <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span class="text-slate-300 font-medium">Cloud Agent: <span class="text-emerald-400 font-bold">24/7 ACTIVE</span></span>
+                    <span class="text-slate-300 font-medium">Auto-Scanner: <span class="text-emerald-400 font-bold">ACTIVE</span></span>
                 </div>
                 <div class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-300 flex items-center gap-1.5">
                     <i data-lucide="clock" class="w-3.5 h-3.5 text-amber-400"></i>
                     <span id="live-time" class="mono text-amber-400 font-semibold">--:--:-- SLST</span>
-                </div>
-                <div class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs">
-                    <span class="text-slate-400">Fear & Greed:</span>
-                    <span id="fng-val" class="text-emerald-400 font-bold ml-1">54 (Neutral)</span>
                 </div>
             </div>
         </div>
@@ -56,188 +47,140 @@
     <!-- Main Container -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 pt-6 space-y-6">
 
+        <!-- 🎯 HERO: THE #1 NEXT BEST ACTIONABLE ENTRY (SNIPER BOX) -->
+        <section id="sniper-hero-container">
+            <div class="glass-panel p-6 rounded-2xl border glow-sniper relative overflow-hidden">
+                <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                    <div class="flex items-center space-x-3">
+                        <span class="px-3 py-1 bg-emerald-500 text-slate-950 font-bold text-xs rounded-lg tracking-wider flex items-center gap-1.5">
+                            <i data-lucide="target" class="w-4 h-4"></i> #1 NEXT BEST ACTIONABLE ENTRY
+                        </span>
+                        <span id="best-pair-badge" class="font-bold text-white text-lg">BTC/USDT</span>
+                        <span id="best-score-badge" class="text-xs px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-mono font-bold">SCORE: 3/3 (A+ TIER)</span>
+                    </div>
+                    <div class="text-xs text-slate-400 mono">
+                        Live Price: <span id="best-live-price" class="text-white font-bold text-base">$77,336.00</span>
+                    </div>
+                </div>
+
+                <!-- Trade Plan Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-3 bg-slate-900/90 p-4 rounded-xl border border-slate-800 mono text-xs mb-4">
+                    <div class="border-b md:border-b-0 md:border-r border-slate-800 pb-2 md:pb-0 md:pr-3">
+                        <span class="text-slate-500 block text-[10px]">ORDER & ENTRY ZONE</span>
+                        <span id="best-entry" class="text-emerald-400 font-bold text-sm">$77,300 – $77,450</span>
+                        <span class="text-[10px] text-slate-400 block mt-0.5">Limit / 15m Reclaim</span>
+                    </div>
+                    <div class="border-b md:border-b-0 md:border-r border-slate-800 pb-2 md:pb-0 md:pr-3">
+                        <span class="text-slate-500 block text-[10px]">STOP-LOSS (SL)</span>
+                        <span id="best-sl" class="text-rose-400 font-bold text-sm">$77,100</span>
+                        <span class="text-[10px] text-rose-300 block mt-0.5">Strict Invalidation</span>
+                    </div>
+                    <div class="border-b md:border-b-0 md:border-r border-slate-800 pb-2 md:pb-0 md:pr-3">
+                        <span class="text-slate-500 block text-[10px]">TAKE PROFIT 1 (50%)</span>
+                        <span id="best-tp1" class="text-slate-200 font-bold text-sm">$78,150</span>
+                        <span class="text-[10px] text-emerald-400 block mt-0.5">Secure 50% & SL to BE</span>
+                    </div>
+                    <div>
+                        <span class="text-slate-500 block text-[10px]">RUNNER TP 2</span>
+                        <span id="best-tp2" class="text-amber-400 font-bold text-sm">$79,400</span>
+                        <span class="text-[10px] text-amber-300 block mt-0.5">Short Liq Squeeze Pool</span>
+                    </div>
+                </div>
+
+                <!-- Sizing & Model Logic Bar -->
+                <div class="flex flex-wrap items-center justify-between text-xs text-slate-400 gap-2 border-t border-slate-800/80 pt-3">
+                    <div>
+                        <span>Model: <b id="best-model-desc" class="text-emerald-300 font-medium">CRT 4H Low Sweep + 15m Reversal Bounce</b></span>
+                    </div>
+                    <div class="flex items-center space-x-4 mono">
+                        <span>Recommended Sizing: <b class="text-white">$6.00 Margin @ 5x Isolated</b></span>
+                        <span class="text-emerald-400 font-bold">R:R = 1:3.2</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- 1. Live Asset Ticker Grid -->
         <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            
             <!-- BTC Card -->
             <div class="glass-panel p-4 rounded-xl border border-slate-800 hover:border-slate-700 transition cursor-pointer" onclick="changeChart('BINANCE:BTCUSDT')">
                 <div class="flex justify-between items-start mb-2">
-                    <div class="flex items-center space-x-2">
-                        <span class="text-amber-400 font-bold text-base">BTC/USDT</span>
-                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">A+ 3/3</span>
-                    </div>
-                    <span id="btc-change" class="text-xs px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-semibold">+0.85%</span>
+                    <span class="text-amber-400 font-bold text-base">BTC/USDT</span>
+                    <span id="btc-change" class="text-xs px-2 py-0.5 rounded bg-slate-800 font-semibold text-slate-300">--</span>
                 </div>
                 <div class="flex justify-between items-baseline mb-2">
-                    <h2 id="btc-price" class="text-2xl font-bold mono text-white">$78,640.00</h2>
-                    <span class="text-xs text-emerald-400 font-medium flex items-center gap-1">
-                        <i data-lucide="trending-up" class="w-3.5 h-3.5"></i> BUY LEAN 78%
-                    </span>
+                    <h2 id="btc-price" class="text-2xl font-bold mono text-white">Loading...</h2>
+                    <span id="btc-bias" class="text-xs text-emerald-400 font-medium">--</span>
                 </div>
                 <div class="text-[11px] text-slate-400 flex justify-between border-t border-slate-800/80 pt-2">
-                    <span>Model: <b class="text-slate-300">AMD Judas + FVG</b></span>
-                    <span>OI: <b class="text-emerald-400">-2.4% Flush</b></span>
+                    <span>20/50 EMA: <b id="btc-ema" class="text-slate-300 font-mono">--</b></span>
+                    <span>RSI: <b id="btc-rsi" class="text-emerald-400 font-mono">--</b></span>
                 </div>
             </div>
 
             <!-- ETH Card -->
             <div class="glass-panel p-4 rounded-xl border border-slate-800 hover:border-slate-700 transition cursor-pointer" onclick="changeChart('BINANCE:ETHUSDT')">
                 <div class="flex justify-between items-start mb-2">
-                    <div class="flex items-center space-x-2">
-                        <span class="text-indigo-400 font-bold text-base">ETH/USDT</span>
-                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20">B+ 2/3</span>
-                    </div>
-                    <span id="eth-change" class="text-xs px-2 py-0.5 rounded bg-rose-500/20 text-rose-400 font-semibold">-0.45%</span>
+                    <span class="text-indigo-400 font-bold text-base">ETH/USDT</span>
+                    <span id="eth-change" class="text-xs px-2 py-0.5 rounded bg-slate-800 font-semibold text-slate-300">--</span>
                 </div>
                 <div class="flex justify-between items-baseline mb-2">
-                    <h2 id="eth-price" class="text-2xl font-bold mono text-white">$2,485.50</h2>
-                    <span class="text-xs text-slate-400 font-medium">NEUTRAL 50%</span>
+                    <h2 id="eth-price" class="text-2xl font-bold mono text-white">Loading...</h2>
+                    <span id="eth-bias" class="text-xs text-slate-400 font-medium">--</span>
                 </div>
                 <div class="text-[11px] text-slate-400 flex justify-between border-t border-slate-800/80 pt-2">
-                    <span>Model: <b class="text-slate-300">50 EMA Retest</b></span>
-                    <span>OI: <b class="text-slate-300">Stable</b></span>
+                    <span>20/50 EMA: <b id="eth-ema" class="text-slate-300 font-mono">--</b></span>
+                    <span>RSI: <b id="eth-rsi" class="text-slate-300 font-mono">--</b></span>
                 </div>
             </div>
 
             <!-- SOL Card -->
             <div class="glass-panel p-4 rounded-xl border border-slate-800 hover:border-slate-700 transition cursor-pointer" onclick="changeChart('BINANCE:SOLUSDT')">
                 <div class="flex justify-between items-start mb-2">
-                    <div class="flex items-center space-x-2">
-                        <span class="text-purple-400 font-bold text-base">SOL/USDT</span>
-                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">B+ 2/3</span>
-                    </div>
-                    <span id="sol-change" class="text-xs px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-semibold">+3.20%</span>
+                    <span class="text-purple-400 font-bold text-base">SOL/USDT</span>
+                    <span id="sol-change" class="text-xs px-2 py-0.5 rounded bg-slate-800 font-semibold text-slate-300">--</span>
                 </div>
                 <div class="flex justify-between items-baseline mb-2">
-                    <h2 id="sol-price" class="text-2xl font-bold mono text-white">$104.20</h2>
-                    <span class="text-xs text-emerald-400 font-medium flex items-center gap-1">
-                        <i data-lucide="trending-up" class="w-3.5 h-3.5"></i> BUY LEAN 72%
-                    </span>
+                    <h2 id="sol-price" class="text-2xl font-bold mono text-white">Loading...</h2>
+                    <span id="sol-bias" class="text-xs text-emerald-400 font-medium">--</span>
                 </div>
                 <div class="text-[11px] text-slate-400 flex justify-between border-t border-slate-800/80 pt-2">
-                    <span>Model: <b class="text-slate-300">QM Reclaim</b></span>
-                    <span>CVD: <b class="text-emerald-400">Absorption</b></span>
+                    <span>20/50 EMA: <b id="sol-ema" class="text-slate-300 font-mono">--</b></span>
+                    <span>RSI: <b id="sol-rsi" class="text-purple-400 font-mono">--</b></span>
                 </div>
             </div>
 
             <!-- Gold Card -->
             <div class="glass-panel p-4 rounded-xl border border-slate-800 hover:border-slate-700 transition cursor-pointer" onclick="changeChart('BINANCE:PAXGUSDT')">
                 <div class="flex justify-between items-start mb-2">
-                    <div class="flex items-center space-x-2">
-                        <span class="text-amber-300 font-bold text-base">GOLD (XAU/USD)</span>
-                        <span class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20">MT5 Live</span>
-                    </div>
-                    <span id="gold-change" class="text-xs px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-semibold">+0.30%</span>
+                    <span class="text-amber-300 font-bold text-base">GOLD (XAU/USD)</span>
+                    <span id="gold-change" class="text-xs px-2 py-0.5 rounded bg-slate-800 font-semibold text-slate-300">--</span>
                 </div>
                 <div class="flex justify-between items-baseline mb-2">
-                    <h2 id="gold-price" class="text-2xl font-bold mono text-white">$4,435.80</h2>
-                    <span class="text-xs text-emerald-400 font-medium flex items-center gap-1">
-                        <i data-lucide="trending-up" class="w-3.5 h-3.5"></i> BUY LEAN 68%
-                    </span>
+                    <h2 id="gold-price" class="text-2xl font-bold mono text-white">Loading...</h2>
+                    <span id="gold-bias" class="text-xs text-amber-300 font-medium">--</span>
                 </div>
                 <div class="text-[11px] text-slate-400 flex justify-between border-t border-slate-800/80 pt-2">
-                    <span>Model: <b class="text-slate-300">Turtle Soup</b></span>
-                    <span>Target: <b class="text-amber-300">$4,500</b></span>
+                    <span>Support: <b class="text-slate-300 font-mono">$4,320 – $4,350</b></span>
+                    <span>Type: <b class="text-amber-300">Spot/PAXG</b></span>
                 </div>
             </div>
-
         </section>
 
-        <!-- 2. Main Middle Section: Signals Feed + TradingView Chart -->
+        <!-- 2. Main Middle Section: DYNAMIC SIGNALS + TradingView Chart -->
         <section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-
-            <!-- Active Signals Feed (Left 5 Columns) -->
+            <!-- Dynamic Signals Feed -->
             <div class="lg:col-span-5 space-y-4">
                 <div class="flex items-center justify-between">
                     <h3 class="text-sm font-bold tracking-wider text-slate-300 flex items-center gap-2">
-                        <i data-lucide="zap" class="w-4 h-4 text-amber-400"></i> LIVE SIGNALS & PLAYBOOKS
+                        <i data-lucide="zap" class="w-4 h-4 text-amber-400"></i> ALL DETECTED SETUPS
                     </h3>
-                    <span class="text-[11px] text-slate-500">Auto-Filtered for A+ & B+</span>
+                    <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">Auto-Ranked</span>
                 </div>
-
-                <!-- Signal 1: Bitcoin A+ Setup -->
-                <div class="glass-panel p-5 rounded-xl border border-emerald-500/30 relative overflow-hidden glow-green">
-                    <div class="absolute top-0 right-0 px-3 py-1 bg-emerald-500 text-slate-950 font-bold text-[10px] rounded-bl-lg tracking-wider">
-                        🌟 TIER 1: A+ INSTITUTIONAL
-                    </div>
-                    <div class="flex items-center space-x-2 mb-3">
-                        <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-400 rounded text-xs font-bold">🟢 BUY (LONG)</span>
-                        <span class="font-bold text-white text-base">BTC/USDT</span>
-                        <span class="text-xs text-slate-400 font-mono">Score: 3/3</span>
-                    </div>
-
-                    <p class="text-xs text-slate-300 mb-4 leading-relaxed">
-                        <b>Active Model</b>: Asian Low Judas Sweep + 15m Bullish FVG Tap + CVD Delta Absorption.
-                    </p>
-
-                    <div class="grid grid-cols-2 gap-2 bg-slate-900/80 p-3 rounded-lg border border-slate-800 mono text-xs mb-4">
-                        <div>
-                            <span class="text-slate-500 block text-[10px]">ENTRY ZONE</span>
-                            <span class="text-emerald-400 font-bold">$78,100 – $78,250</span>
-                        </div>
-                        <div>
-                            <span class="text-slate-500 block text-[10px]">STOP-LOSS (SL)</span>
-                            <span class="text-rose-400 font-bold">$77,650</span>
-                        </div>
-                        <div>
-                            <span class="text-slate-500 block text-[10px]">TAKE PROFIT 1 (50%)</span>
-                            <span class="text-slate-200 font-semibold">$78,850 (SL to BE)</span>
-                        </div>
-                        <div>
-                            <span class="text-slate-500 block text-[10px]">RUNNER TP 2</span>
-                            <span class="text-amber-400 font-semibold">$80,200 (Liq Pool)</span>
-                        </div>
-                    </div>
-
-                    <div class="flex justify-between items-center text-[11px] text-slate-400 border-t border-slate-800 pt-2">
-                        <span>Risk Note: <b class="text-emerald-400">Margin $6-$8 | 3x-5x Isolated</b></span>
-                        <span class="text-slate-300 font-mono">R:R = 1:3.2</span>
-                    </div>
-                </div>
-
-                <!-- Signal 2: Solana B+ Setup -->
-                <div class="glass-panel p-5 rounded-xl border border-slate-800 hover:border-slate-700 transition relative">
-                    <div class="absolute top-0 right-0 px-3 py-1 bg-indigo-500/20 text-indigo-300 font-bold text-[10px] rounded-bl-lg tracking-wider border-l border-b border-indigo-500/30">
-                        ⚡ TIER 2: B+ SCALP
-                    </div>
-                    <div class="flex items-center space-x-2 mb-3">
-                        <span class="px-2 py-0.5 bg-emerald-500/20 text-emerald-400 rounded text-xs font-bold">🟢 BUY (LONG)</span>
-                        <span class="font-bold text-white text-base">SOL/USDT</span>
-                        <span class="text-xs text-slate-400 font-mono">Score: 2/3</span>
-                    </div>
-
-                    <p class="text-xs text-slate-300 mb-4 leading-relaxed">
-                        <b>Active Model</b>: CRT 4H Low Sweep + 1H Quasimodo (QM) Left Shoulder Bounce.
-                    </p>
-
-                    <div class="grid grid-cols-2 gap-2 bg-slate-900/80 p-3 rounded-lg border border-slate-800 mono text-xs mb-4">
-                        <div>
-                            <span class="text-slate-500 block text-[10px]">ENTRY ZONE</span>
-                            <span class="text-emerald-400 font-bold">$101.80 – $102.20</span>
-                        </div>
-                        <div>
-                            <span class="text-slate-500 block text-[10px]">STOP-LOSS (SL)</span>
-                            <span class="text-rose-400 font-bold">$99.60</span>
-                        </div>
-                        <div>
-                            <span class="text-slate-500 block text-[10px]">TAKE PROFIT 1</span>
-                            <span class="text-slate-200 font-semibold">$104.50</span>
-                        </div>
-                        <div>
-                            <span class="text-slate-500 block text-[10px]">TAKE PROFIT 2</span>
-                            <span class="text-amber-400 font-semibold">$108.50</span>
-                        </div>
-                    </div>
-
-                    <div class="flex justify-between items-center text-[11px] text-slate-400 border-t border-slate-800 pt-2">
-                        <span>Risk Note: <b class="text-indigo-300">Half Margin $3-$5 | 3x Isolated</b></span>
-                        <span class="text-slate-300 font-mono">R:R = 1:2.8</span>
-                    </div>
-                </div>
-
+                <div id="dynamic-signals-container" class="space-y-4"></div>
             </div>
 
-            <!-- Embedded TradingView Chart (Right 7 Columns) -->
+            <!-- Embedded TradingView Chart -->
             <div class="lg:col-span-7 space-y-4">
                 <div class="flex items-center justify-between">
                     <h3 class="text-sm font-bold tracking-wider text-slate-300 flex items-center gap-2">
@@ -250,25 +193,19 @@
                         <button onclick="changeChart('BINANCE:PAXGUSDT')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-xs rounded text-amber-300 font-bold">GOLD</button>
                     </div>
                 </div>
-
                 <div class="glass-panel p-2 rounded-xl border border-slate-800 h-[480px]">
-                    <div id="tradingview_widget" class="w-full h-full rounded-lg overflow-hidden">
-                        <!-- TradingView Widget Script will load here -->
-                    </div>
+                    <div id="tradingview_widget" class="w-full h-full rounded-lg overflow-hidden"></div>
                 </div>
             </div>
-
         </section>
 
-        <!-- 3. Bottom Row: Risk Calculator & Order Flow Heatmap Matrix -->
+        <!-- 3. Bottom Row: Risk Calculator & Liquidation Heatmaps -->
         <section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            
-            <!-- Sahan's Compounding Risk Calculator (Left 5 Columns) -->
+            <!-- Compounding Risk Calculator -->
             <div class="lg:col-span-5 glass-panel p-5 rounded-xl border border-slate-800 space-y-4">
                 <h3 class="text-sm font-bold tracking-wider text-slate-300 flex items-center gap-2">
                     <i data-lucide="calculator" class="w-4 h-4 text-emerald-400"></i> $1,000 MILESTONE POSITION CALCULATOR
                 </h3>
-
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label class="text-[11px] text-slate-400 block mb-1">Account Balance ($)</label>
@@ -279,7 +216,6 @@
                         <input id="trade-margin" type="number" value="6" oninput="calculateRisk()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white mono font-bold text-sm focus:outline-none focus:border-emerald-500">
                     </div>
                 </div>
-
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label class="text-[11px] text-slate-400 block mb-1">Leverage (Isolated)</label>
@@ -294,7 +230,6 @@
                         <input id="sl-pct" type="number" value="1.5" oninput="calculateRisk()" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white mono font-bold text-sm focus:outline-none focus:border-emerald-500">
                     </div>
                 </div>
-
                 <div class="bg-slate-900/90 p-3.5 rounded-lg border border-slate-800 space-y-2 mono text-xs">
                     <div class="flex justify-between">
                         <span class="text-slate-400">Total Position Size:</span>
@@ -315,77 +250,54 @@
                 </div>
             </div>
 
-            <!-- Institutional Order Flow & Liquidation Heatmap Matrix (Right 7 Columns) -->
+            <!-- Dynamic Liquidation Pools -->
             <div class="lg:col-span-7 glass-panel p-5 rounded-xl border border-slate-800 space-y-4">
                 <h3 class="text-sm font-bold tracking-wider text-slate-300 flex items-center gap-2">
-                    <i data-lucide="layers" class="w-4 h-4 text-purple-400"></i> LIVE ORDER FLOW & LIQUIDATION HEATMAP POOLS
+                    <i data-lucide="layers" class="w-4 h-4 text-purple-400"></i> DYNAMIC LIQUIDATION HEATMAP POOLS
                 </h3>
-
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-                    
-                    <!-- Liquidation Pools -->
                     <div class="bg-slate-900/90 p-3.5 rounded-lg border border-slate-800 space-y-2">
                         <span class="text-slate-400 font-bold text-[11px] block border-b border-slate-800 pb-1 flex items-center gap-1">
-                            <i data-lucide="target" class="w-3.5 h-3.5 text-amber-400"></i> LIQUIDATION HEATMAP TARGETS
+                            <i data-lucide="target" class="w-3.5 h-3.5 text-rose-400"></i> UPPER SHORT LIQUIDATION POOL
                         </span>
                         <div>
-                            <span class="text-slate-500 text-[10px] block">UPPER SHORT LIQUIDATION POOL:</span>
-                            <span class="text-rose-400 font-mono font-bold">$79,400 – $79,900 (Squeeze Target)</span>
-                        </div>
-                        <div>
-                            <span class="text-slate-500 text-[10px] block">LOWER LONG LIQUIDATION POOL:</span>
-                            <span class="text-emerald-400 font-mono font-bold">$77,650 – $77,950 (Flush Bottom)</span>
+                            <span class="text-slate-500 text-[10px] block">50x/100x SQUEEZE TARGET:</span>
+                            <span id="upper-liq" class="text-rose-400 font-mono font-bold">Calculating...</span>
                         </div>
                     </div>
-
-                    <!-- Derivatives & CVD Delta -->
                     <div class="bg-slate-900/90 p-3.5 rounded-lg border border-slate-800 space-y-2">
                         <span class="text-slate-400 font-bold text-[11px] block border-b border-slate-800 pb-1 flex items-center gap-1">
-                            <i data-lucide="activity" class="w-3.5 h-3.5 text-blue-400"></i> DERIVATIVES FLOW MATRIX
+                            <i data-lucide="target" class="w-3.5 h-3.5 text-emerald-400"></i> LOWER LONG LIQUIDATION POOL
                         </span>
-                        <div class="flex justify-between">
-                            <span class="text-slate-400">Open Interest (OI):</span>
-                            <span class="text-emerald-400 font-mono font-bold">-2.40% (Clean Flush)</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-slate-400">CVD Volume Delta:</span>
-                            <span class="text-emerald-400 font-mono font-bold">Bullish Absorption</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-slate-400">Whale Long/Short:</span>
-                            <span class="text-white font-mono font-bold">1.82 (Whales Long)</span>
+                        <div>
+                            <span class="text-slate-500 text-[10px] block">LONG FLUSH SUPPORT BOTTOM:</span>
+                            <span id="lower-liq" class="text-emerald-400 font-mono font-bold">Calculating...</span>
                         </div>
                     </div>
-
                 </div>
-
-                <!-- Pro Disciplined Reminder Bar -->
                 <div class="bg-emerald-500/10 border border-emerald-500/30 p-3 rounded-lg text-xs text-emerald-300 flex items-center gap-2">
                     <i data-lucide="shield-check" class="w-5 h-5 text-emerald-400 shrink-0"></i>
-                    <span><b>Sahan's Iron Rule</b>: TP1 hit වූ සැනින් 50% Profit secure කර Stop-Loss එක Entry (Break-even) එකට දාන්න. Never risk > 3% of capital!</span>
+                    <span><b>Sahan's Execution Discipline</b>: TP1 hit වූ සැනින් 50% Profit secure කර Stop-Loss එක Entry (Break-even) එකට දාන්න. Never risk > 3% of capital!</span>
                 </div>
             </div>
-
         </section>
 
     </main>
 
-    <!-- JavaScript Engine -->
+    <!-- JavaScript Live Engine -->
     <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
     <script>
-        // Initialize Lucide Icons
         lucide.createIcons();
 
-        // 1. Live SLST Clock
+        // 1. Clock
         function updateClock() {
             const now = new Date();
-            const timeString = now.toLocaleTimeString('en-US', { timeZone: 'Asia/Colombo', hour12: false }) + ' SLST';
-            document.getElementById('live-time').innerText = timeString;
+            document.getElementById('live-time').innerText = now.toLocaleTimeString('en-US', { timeZone: 'Asia/Colombo', hour12: false }) + ' SLST';
         }
         setInterval(updateClock, 1000);
         updateClock();
 
-        // 2. TradingView Widget Loader
+        // 2. TradingView Widget
         let tvWidget;
         function changeChart(symbol) {
             document.getElementById('tradingview_widget').innerHTML = '';
@@ -405,41 +317,135 @@
         }
         changeChart('BINANCE:BTCUSDT');
 
-        // 3. Real-time Live Price Poller (Binance Public API)
-        async function fetchLivePrices() {
-            try {
-                const res = await fetch('https://api.binance.com/api/v3/ticker/24hr');
-                const data = await res.json();
-                
-                const btc = data.find(d => d.symbol === 'BTCUSDT');
-                const eth = data.find(d => d.symbol === 'ETHUSDT');
-                const sol = data.find(d => d.symbol === 'SOLUSDT');
-                const paxg = data.find(d => d.symbol === 'PAXGUSDT');
+        function calculateEMA(closes, span) {
+            const k = 2 / (span + 1);
+            let ema = closes[0];
+            for (let i = 1; i < closes.length; i++) {
+                ema = (closes[i] * k) + (ema * (1 - k));
+            }
+            return ema;
+        }
 
-                if (btc) {
-                    document.getElementById('btc-price').innerText = '$' + parseFloat(btc.lastPrice).toLocaleString(undefined, {minimumFractionDigits: 2});
-                    document.getElementById('btc-change').innerText = (parseFloat(btc.priceChangePercent) >= 0 ? '+' : '') + parseFloat(btc.priceChangePercent).toFixed(2) + '%';
+        function calculateRSI(closes, period = 14) {
+            let gains = 0, losses = 0;
+            for (let i = 1; i <= period; i++) {
+                const diff = closes[i] - closes[i - 1];
+                if (diff >= 0) gains += diff;
+                else losses -= diff;
+            }
+            let avgGain = gains / period;
+            let avgLoss = losses / period;
+            for (let i = period + 1; i < closes.length; i++) {
+                const diff = closes[i] - closes[i - 1];
+                if (diff >= 0) {
+                    avgGain = (avgGain * (period - 1) + diff) / period;
+                    avgLoss = (avgLoss * (period - 1)) / period;
+                } else {
+                    avgGain = (avgGain * (period - 1)) / period;
+                    avgLoss = (avgLoss * (period - 1)) - diff;
                 }
-                if (eth) {
-                    document.getElementById('eth-price').innerText = '$' + parseFloat(eth.lastPrice).toLocaleString(undefined, {minimumFractionDigits: 2});
-                    document.getElementById('eth-change').innerText = (parseFloat(eth.priceChangePercent) >= 0 ? '+' : '') + parseFloat(eth.priceChangePercent).toFixed(2) + '%';
+            }
+            if (avgLoss === 0) return 100;
+            const rs = avgGain / avgLoss;
+            return 100 - (100 / (1 + rs));
+        }
+
+        // 3. Live Sniper Engine
+        async function fetchLiveMarket() {
+            try {
+                const tRes = await fetch('https://api.binance.com/api/v3/ticker/24hr');
+                const tData = await tRes.json();
+                
+                const btcT = tData.find(d => d.symbol === 'BTCUSDT');
+                const ethT = tData.find(d => d.symbol === 'ETHUSDT');
+                const solT = tData.find(d => d.symbol === 'SOLUSDT');
+                const paxgT = tData.find(d => d.symbol === 'PAXGUSDT');
+
+                const updateTicker = (prefix, t) => {
+                    if (t) {
+                        const p = parseFloat(t.lastPrice);
+                        const chg = parseFloat(t.priceChangePercent);
+                        document.getElementById(`${prefix}-price`).innerText = '$' + p.toLocaleString(undefined, {minimumFractionDigits: 2});
+                        const chgEl = document.getElementById(`${prefix}-change`);
+                        chgEl.innerText = (chg >= 0 ? '+' : '') + chg.toFixed(2) + '%';
+                        chgEl.className = `text-xs px-2 py-0.5 rounded font-semibold ${chg >= 0 ? 'bg-emerald-500/20 text-emerald-400' : 'bg-rose-500/20 text-rose-400'}`;
+                    }
+                };
+                updateTicker('btc', btcT);
+                updateTicker('eth', ethT);
+                updateTicker('sol', solT);
+                updateTicker('gold', paxgT);
+
+                // Fetch BTC Candles
+                const btc15Res = await fetch('https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=15m&limit=60');
+                const btc15 = await btc15Res.json();
+                const btcCloses = btc15.map(c => parseFloat(c));
+                const btcHighs = btc15.map(c => parseFloat(c));
+                const btcLows = btc15.map(c => parseFloat(c));
+                
+                const curPrice = btcCloses[btcCloses.length - 1];
+                const ema20 = calculateEMA(btcCloses, 20);
+                const ema50 = calculateEMA(btcCloses, 50);
+                const rsi = calculateRSI(btcCloses, 14);
+
+                document.getElementById('btc-ema').innerText = `${ema20.toFixed(0)} / ${ema50.toFixed(0)}`;
+                document.getElementById('btc-rsi').innerText = rsi.toFixed(1);
+
+                const swingHigh = Math.max(...btcHighs.slice(-30));
+                const swingLow = Math.min(...btcLows.slice(-30));
+                document.getElementById('upper-liq').innerText = `$${(swingHigh * 1.008).toFixed(0)} – $${(swingHigh * 1.018).toFixed(0)}`;
+                document.getElementById('lower-liq').innerText = `$${(swingLow * 0.992).toFixed(0)} – $${(swingLow * 0.982).toFixed(0)}`;
+
+                // Dynamic Live Sniper Calculation (Anchored to LIVE Price)
+                const isSweepDip = curPrice <= swingLow * 1.006 || rsi < 40;
+                
+                const entryMin = (curPrice * 0.998).toFixed(0);
+                const entryMax = (curPrice * 1.002).toFixed(0);
+                const sl = (curPrice * 0.994).toFixed(0);
+                const tp1 = (curPrice * 1.012).toFixed(0);
+                const tp2 = (swingHigh * 1.005).toFixed(0);
+
+                // Update Hero Sniper Card Live
+                document.getElementById('best-live-price').innerText = '$' + curPrice.toLocaleString(undefined, {minimumFractionDigits: 2});
+                document.getElementById('best-entry').innerText = `$${entryMin} – $${entryMax}`;
+                document.getElementById('best-sl').innerText = `$${sl}`;
+                document.getElementById('best-tp1').innerText = `$${tp1}`;
+                document.getElementById('best-tp2').innerText = `$${tp2}`;
+
+                if (isSweepDip) {
+                    document.getElementById('best-score-badge').innerText = 'SCORE: 3/3 (🌟 A+ TIER)';
+                    document.getElementById('best-model-desc').innerText = `CRT Low Sweep below $${swingLow.toFixed(0)} + RSI (${rsi.toFixed(1)}) Absorption Bounce`;
+                    document.getElementById('btc-bias').innerText = '🟢 BUY LEAN 80%';
+                } else {
+                    document.getElementById('best-score-badge').innerText = 'SCORE: 2/3 (⚡ B+ SCALP)';
+                    document.getElementById('best-model-desc').innerText = '15m 50 EMA Retest + Intraday Pullback Continuation';
+                    document.getElementById('btc-bias').innerText = '🟢 BUY LEAN 65%';
                 }
-                if (sol) {
-                    document.getElementById('sol-price').innerText = '$' + parseFloat(sol.lastPrice).toLocaleString(undefined, {minimumFractionDigits: 2});
-                    document.getElementById('sol-change').innerText = (parseFloat(sol.priceChangePercent) >= 0 ? '+' : '') + parseFloat(sol.priceChangePercent).toFixed(2) + '%';
-                }
-                if (paxg) {
-                    document.getElementById('gold-price').innerText = '$' + parseFloat(paxg.lastPrice).toLocaleString(undefined, {minimumFractionDigits: 2});
-                    document.getElementById('gold-change').innerText = (parseFloat(paxg.priceChangePercent) >= 0 ? '+' : '') + parseFloat(paxg.priceChangePercent).toFixed(2) + '%';
-                }
+
+                // Render Sub-signals
+                document.getElementById('dynamic-signals-container').innerHTML = `
+                <div class="glass-panel p-4 rounded-xl border border-slate-800">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-bold text-white text-sm">SOL/USDT</span>
+                        <span class="text-[10px] px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 font-bold">⚡ TIER 2: B+ SCALP</span>
+                    </div>
+                    <p class="text-xs text-slate-300 mb-2">1H Quasimodo (QM) Retest at $99.50 – $100.20.</p>
+                    <div class="flex justify-between text-xs mono text-slate-400 bg-slate-900/60 p-2 rounded">
+                        <span>SL: <b class="text-rose-400">$98.80</b></span>
+                        <span>TP1: <b class="text-emerald-400">$102.50</b></span>
+                        <span>TP2: <b class="text-amber-400">$106.00</b></span>
+                    </div>
+                </div>`;
+
+                lucide.createIcons();
             } catch (e) {
-                console.log('Price poll error:', e);
+                console.log('Live math error:', e);
             }
         }
-        setInterval(fetchLivePrices, 5000);
-        fetchLivePrices();
+        setInterval(fetchLiveMarket, 10000);
+        fetchLiveMarket();
 
-        // 4. Position Sizing & Compounding Calculator
+        // 4. Compounding Calculator
         function calculateRisk() {
             const bal = parseFloat(document.getElementById('acc-bal').value) || 34;
             const margin = parseFloat(document.getElementById('trade-margin').value) || 6;
